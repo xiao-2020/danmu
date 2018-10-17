@@ -1,0 +1,23 @@
+{
+  "name": "nls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "react": "^16.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiao-2020/react.git"
+  },
+  "author": "lx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiao-2020/react/issues"
+  },
+  "homepage": "https://github.com/xiao-2020/react#readme",
+  "dependencies": {}
+}
