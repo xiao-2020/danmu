@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+// import { testMixins } from './mixins'
 import './test.css'
 class Test extends Component {
   constructor(props) {
@@ -38,7 +39,9 @@ class Test extends Component {
         <p>这是test组件</p>
         <input type="text" value= { this.state.num } onChange= { this.change } />
         <br />
+        {this.props.left}
         <br />
+        <p>{this.props.children}</p>
         <br />
         <button onClick={this.props.cancle}>点我关闭</button>
       </div>
