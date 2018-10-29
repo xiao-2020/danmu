@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './App.css';
 import Test from './test'
 import Left from './left'
+import {BrowserRouter, Route} from 'react-router-dom'
+// import RRRouter from './router'
 class App extends Component {
   constructor() {
     super();
@@ -15,11 +17,14 @@ class App extends Component {
   }
   render() {
     return (
-      <div className='body-box'>
-        <button onClick={this.click}>点我弹窗口</button>
-        <p>{this.state.num}</p>
-        {this.state.showTips && <Test num= { this.state.num }  cancle= { this.cancel } setNum= {this.setNum} left={ <Left /> }>1209</Test>}
-      </div>
+      <BrowserRouter>
+        <Route path="/" component={Test}></Route>
+      </BrowserRouter>
+      // <div className='body-box'>
+      //   <button onClick={this.click}>点我弹窗口</button>
+      //   <p>{this.state.num}</p>
+      //   {this.state.showTips && <Test num= { this.state.num }  cancle= { this.cancel } setNum= {this.setNum} left={ <Left /> }>1209</Test>}
+      // </div>
     );
   }
 }
