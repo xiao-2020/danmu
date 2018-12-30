@@ -1,0 +1,34 @@
+{
+  "name": "superdanmu",
+  "version": "1.0.0",
+  "description": "弹幕demo",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiao-2020/danmu.git"
+  },
+  "keywords": [
+    "danmu",
+    "node",
+    "webpack",
+    "react"
+  ],
+  "author": "Lx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiao-2020/danmu/issues"
+  },
+  "homepage": "https://github.com/xiao-2020/danmu#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "chalk": "^2.4.1",
+    "html-webpack-plugin": "^3.2.0",
+    "ora": "^3.0.0",
+    "webpack": "^4.28.3",
+    "webpack-merge": "^4.1.5"
+  }
+}
