@@ -1,4 +1,3 @@
-console.log(1)
 const path = require('path')
 const config = require('./config')
 const baseWebpackConfig = require('./webpack.base.conf')
@@ -11,4 +10,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins:[]
 })
 console.log(devWebpackConfig) 
-module.exports = devWebpackConfig
+module.exports = new Promise((resolve, reject) => {
+  resolve(devWebpackConfig)
+})
