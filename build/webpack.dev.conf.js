@@ -9,7 +9,4 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   plugins:[]
 })
-console.log(devWebpackConfig) 
-module.exports = new Promise((resolve, reject) => {
-  resolve(devWebpackConfig)
-})
+module.exports = devWebpackConfig
