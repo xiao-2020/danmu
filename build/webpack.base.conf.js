@@ -3,7 +3,6 @@ const path = require('path')
 const config = require('./config')
 
 const isProd = process.env.NODE_ENV === 'production'
-console.log(isProd)
 module.exports = {
   // 项目的基础路径 一般指定当前工作目录
   context: path.resolve(__dirname, '../'),

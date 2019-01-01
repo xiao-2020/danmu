@@ -4,6 +4,7 @@
   "description": "弹幕demo",
   "private": true,
   "scripts": {
+    "dev": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node build/build.js"
   },
@@ -28,8 +29,10 @@
     "chalk": "^2.4.1",
     "html-webpack-plugin": "^3.2.0",
     "ora": "^3.0.0",
-    "webpack": "^4.28.3",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.5"
+  },
+  "devDependencies": {
+    "webpack": "^4.28.3"
   }
 }
