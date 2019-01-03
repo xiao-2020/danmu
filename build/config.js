@@ -13,7 +13,7 @@ module.exports = {
   },
   production: {
     // 设置打包后的资源目录路径
-    resouceDir: path.resolve(__dirname, '..',dir),
+    resouceDir: path.resolve(__dirname, '..',dir, 'static'),
     mode: 'production',
     devtool: 'none',
     publicPath: '/',
