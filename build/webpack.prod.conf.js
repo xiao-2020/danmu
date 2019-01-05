@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const cleanWebpackPlugin = require('clean-webpack-plugin')
 const webpackBaseConf = require('./webpack.base.conf')
+const copyWebpackPlugin = require('copy-webpack-plugin')
 const config = require('./config')
 const webpackConfig = env => merge(webpackBaseConf(env), {
   plugins: [
@@ -16,7 +17,7 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
     // 生成html 文件
     new htmlWebpackPlugin({
       template: 'index.html',  // 模版html 文件   默认 是 当前 项目主目录   写 index.html  相当于  path.resolve(/, 'index.html)
-      favicon: path.resolve(__dirname, '../src/assets/danmu.ico'), // 添加icon 图标
+      favicon: path.resolve(__dirname, '../static/ico/danmu.ico'), // 添加icon 图标
       minify: { // 控制缩小输出的配置  减小输出的文件
         collapseWhitespace: true, // 去除文档中的空格
         removeComments: true,
@@ -36,6 +37,27 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
     // })
     // 压缩丑化js文件
 
+    // 自定义的静态资源， copy到打包后的静态资源目录  arg: [pattern], options
+    new copyWebpackPlugin([{
+      from: path.resolve(__dirname, '../static'),
+      to: config.production.assetsSubDir,
+      // 在copy之前做一些操作来修改 文本内容   content : 文件流  path  文件路径
+      transform: function(content, path) {
+        // console.log(content, path)
+        return content
+      }
+    }], {
+      // 忽略哪些文件 ----- glob  匹配规则 满足条件的不copy      dot : false   意思就是   允许所有 以.开头的文件 copy
+      ignore: [{
+        glob: 'ico/*',
+        dot: false
+      },
+      {
+        glob: '**/SN*',
+      }],
+      // 默认false    只复制 修改过的文件     设置为true  就是 意思就是 复制所有的满足条件的文件 不管 有没有修改
+      copyUnmodified: false
+    }),
   ],
 });
 module.exports = webpackConfig
