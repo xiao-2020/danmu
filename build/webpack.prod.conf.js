@@ -17,7 +17,7 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
     // 生成html 文件
     new htmlWebpackPlugin({
       template: 'index.html',  // 模版html 文件   默认 是 当前 项目主目录   写 index.html  相当于  path.resolve(/, 'index.html)
-      favicon: path.resolve(__dirname, '../static/ico/danmu.ico'), // 添加icon 图标
+      favicon: path.posix.resolve(__dirname, '../static/ico/danmu.ico'), // 添加icon 图标
       minify: { // 控制缩小输出的配置  减小输出的文件
         collapseWhitespace: true, // 去除文档中的空格
         removeComments: true,

@@ -1,12 +1,11 @@
 
 const path = require('path')
 const config = require('./config')
-console.log(process.env.NODE_ENV)
 module.exports = env => {
   const isProd = env === 'production'
   return {
     // 项目的基础路径 一般指定当前工作目录
-    context: path.resolve(__dirname, '../'),
+    context: path.posix.resolve(__dirname, '../'),
     // 指定打包文件的入口文件
     entry: {
       app: ['babel-polyfill', './src/main.js'] 
@@ -16,7 +15,7 @@ module.exports = env => {
       // 输入到那个位置
       path: config.production.resouceDir,
       // 制定生成的文件名称，  [name] 代表 入口对象制定的key值
-      filename: path.join(config[env].assetsSubDir, 'js/[name].js'),
+      filename: path.posix.join(config[env].assetsSubDir, 'js/[name].js'),
       publicPath: isProd ? config.production.publicPath : config.dev.publicPath,
     },
     devtool: isProd ? config.production.devtools : config.dev.devtools,
