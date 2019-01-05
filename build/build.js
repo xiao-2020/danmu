@@ -2,15 +2,14 @@ const ora = require('ora') // 用来在命令行实现一些 loading 特殊的�
 const chalk = require('chalk') // 用来显示在终端不同的颜色文本
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.prod.conf')
-
-process.env.NODE_ENV = 'production' // 指定当前环境
+process.env.NODE_ENV = 'production'
 const spinner = ora({
   text: '正在打包项目。。。',
   spinner: "bouncingBall",  // loading 特效  --->   https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json
   interval: 50
 }).start();
 
-webpack(webpackConfig, async (err, stats) => {
+webpack(webpackConfig('production'), async (err, stats) => {
   if(err) throw err;
   // 输出打包过程信息
   process.stdout.write(stats.toString({

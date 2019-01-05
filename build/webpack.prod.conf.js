@@ -1,9 +1,11 @@
 const path = require('path')
-const webpackBaseConf = require('./webpack.base.conf')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
-const webpackConfig = merge(webpackBaseConf, {
+const cleanWebpackPlugin = require('clean-webpack-plugin')
+const webpackBaseConf = require('./webpack.base.conf')
+const config = require('./config')
+const webpackConfig = env => merge(webpackBaseConf(env), {
   plugins: [
     // 定义变量 以便于在项目源文件中可以取到    根据不同的环境打包不同的配置文件
     new webpack.DefinePlugin({
@@ -24,6 +26,14 @@ const webpackConfig = merge(webpackBaseConf, {
         removeAttributeQuotes: true, // 尽可能的去掉属性周围的引号
       },
     }),
+    // 清理文件夹  指定清除的文件夹  并配置 文件加所在的路径
+    new cleanWebpackPlugin([config.production.resouceDir], {
+      root: path.resolve(__dirname, '..')
+    }),
+    // 防止重复 提取公共依赖模块
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name:'common'
+    // })
     // 压缩丑化js文件
 
   ],
