@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/xiao-2020/danmu#readme",
   "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.26.0",
     "chalk": "^2.4.1",
     "clean-webpack-plugin": "^1.0.0",

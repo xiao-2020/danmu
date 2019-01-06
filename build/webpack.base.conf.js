@@ -20,7 +20,13 @@ module.exports = env => {
     },
     devtool: isProd ? config.production.devtools : config.dev.devtools,
     module: {
-      rules: []
+      rules: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: [path.resolve(__dirname, '../node_modules')]
+        }
+      ]
     },
     mode: isProd ? config.production.mode : config.dev.mode,
   }
