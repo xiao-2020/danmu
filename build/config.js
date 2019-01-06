@@ -15,6 +15,8 @@ module.exports = {
     devtool: 'none',
     publicPath: '/',
     assetsSubDir: 'static',
+    // 设置打包后的资源目录路径
+    resouceDir: path.posix.resolve(__dirname, '..',dir),
   },
   production: {
     output: {
