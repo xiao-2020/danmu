@@ -75,6 +75,8 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
         removeAttributeQuotes: true, // 尽可能的去掉属性周围的引号
       },
     }),
+    // 需要热加载 需要添加插件
+    new webpack.HotModuleReplacementPlugin(),
     // 自定义的静态资源， copy到打包后的静态资源目录  arg: [pattern], options
     new copyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
