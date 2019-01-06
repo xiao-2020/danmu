@@ -5,6 +5,8 @@ const copyWebpackPlugin = require('copy-webpack-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
+const portfinder = require('portfinder')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const devWebpackConfig = merge(baseWebpackConfig('dev'), {
   devtool: config.dev.devtool,
   devServer: {
@@ -13,8 +15,8 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     // contentBase: path.resolve(__dirname, '..', 'dist') */,  // 资源的位置   可以指定路径    也可以不写 或禁用     devserver 访问的内存中的文件
     // 一般 禁用此选项后 服务会在当前根目录找 静态资源   用 html生成插件生成一个文件就可以了   然后用 copy 插件将静态资源 copy到打包目录下 就可以了  ， 
     compress: true, // 启动gzip 压缩
-    port: 8088, // 端口号
-    host: 'localhost', // 如果需要外部服务器访问 指定 0.0.0.0
+    port: config.dev.port, // 端口号
+    host: config.dev.host, // 如果需要外部服务器访问 指定 0.0.0.0
     open: true, // 是否打开默认浏览器
     hot: true, // 开启模块热替换， 加了这个属性  会默认使用 HotModulesReplacePlugin 插件，   配置里 不需要再指定了
     // hotOnly: true, // 和 hot 的 区别在于在某些模块不支持惹替换的情况下  hot会自动刷新页面， hotOnly 不会，  会在控制台提示热更新失败   一般用hot
@@ -96,4 +98,33 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     }),
   ]
 })
-module.exports = devWebpackConfig
+
+// 如果想要在控制台输出服务启动的地址和端口号 或者 服务器地址端口号被占用的情况下 需要处理掉话  引入  portfinder  和  firendlyError npm
+const basePort = process.env.PORT && Number(process.env.PORT)
+// 因为 portfinder 是异步掉 所以需要 处理下  这里用 promise 处理就可以了  只不过 在  loadre 里面 对promise 需要 polyfill 下  来进行兼容处理
+module.exports = new Promise((resolve, reject) => {
+  // 指定 找 端口 package  的 基础端口  他会一个一个向上走， 找到一个合适的没有被占用的端口，   找到的端口  会穿入一个 getport 函数 中
+  portfinder.basePort = basePort || config.dev.port
+  portfinder.getPort((err, port) => {
+    if(err) {
+      reject(err)
+    } else {
+      // 更新 server 的端口  并添加插件输出  应用运行掉地址和端口号
+      devWebpackConfig.devServer.port = port
+      devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+        // 编译成功之后的信息
+        compilationSuccessInfo: {
+          messages: [`应用运行在: http://${devWebpackConfig.devServer.host}:${port}`],
+        },
+        // 是否清空控制台 默认为true
+        clearConsole: true,
+        // 可以设置一些 对错误信息的一些处理， 来达到更好的提示效果  接受两个参数   一个是 错误的等级   一个是错误的信息
+        // 这个插件没有提供桌面通知的支持 。  可以用 node-notifier 来 兼容处理    在  此插件掉 npm 官网上 有详细的例子 这里不加了
+        onErrors: function(severity, error) {
+
+        }
+      }))
+      resolve(devWebpackConfig)
+    }
+  })
+})

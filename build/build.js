@@ -3,12 +3,13 @@ const chalk = require('chalk') // 用来显示在终端不同的颜色文本
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.prod.conf')
 process.env.NODE_ENV = 'production'
+// 此工具提供 loading 动画
 const spinner = ora({
   text: '正在打包项目。。。',
   spinner: "bouncingBall",  // loading 特效  --->   https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json
   interval: 50
 }).start();
-
+// 使用webpack 函数 打包文件，   然后在打包过程中做一些 操作
 webpack(webpackConfig('production'), async (err, stats) => {
   if(err) throw err;
   // 输出打包过程信息

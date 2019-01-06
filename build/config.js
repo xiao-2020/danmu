@@ -11,6 +11,8 @@ module.exports = {
     },
     mode: 'development',
     // 定义 devServer 的部分参数
+    host: 'localhost',
+    port: 8088,
     proxy: {},
     devtool: 'none',
     publicPath: '/',

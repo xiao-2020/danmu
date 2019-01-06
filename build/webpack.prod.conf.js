@@ -6,6 +6,8 @@ const cleanWebpackPlugin = require('clean-webpack-plugin')
 const webpackBaseConf = require('./webpack.base.conf')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 const config = require('./config')
+
+// 在 build 文件里面 有定义 process.env.NODE_ENV  但是在这个页面取不到  很奇怪 所以 用 函数 参数的形式传入
 const webpackConfig = env => merge(webpackBaseConf(env), {
   plugins: [
     // 定义变量 以便于在项目源文件中可以取到    根据不同的环境打包不同的配置文件
