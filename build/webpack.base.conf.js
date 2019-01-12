@@ -25,6 +25,25 @@ module.exports = env => {
           test: /\.jsx?$/,
           loader: 'babel-loader',
           exclude: [path.resolve(__dirname, '../node_modules')]
+        },
+        {
+          test: /\.styl$|\.css$/, // 项目配置使用 stylus 编译器    loader 不仅仅需要使用 stylus loader  还需要 使用 css-loader 和 style-loader
+          //  如果需要设置自动前缀， 则 引入 postcss-loader 和 autoprefixer   
+          use: [
+            'style-loader', 
+            'css-loader', 
+            {
+              loader: 'postcss-loader',
+              // 参数一般 在根目录下建 postcss.config.js
+              // options: {
+              //   // 指定postcss 路径  默认 会 一级一级目录向上找   postcss.config.js 文件， 找到就会应用， 所以可以设置不同文件不同的解析配置。  推荐在根目录下 创建  config文件
+              //   config: {
+              //     path: '',
+              //   }
+              // }
+            },
+            'stylus-loader',
+          ]
         }
       ]
     },
