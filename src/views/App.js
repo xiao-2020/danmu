@@ -1,8 +1,18 @@
 import React from 'react'
 
+import Header from './Header'
+import Body from './Body'
+import Footer from './Footer'
+
 class App extends React.Component {
   render() {
-    return <h1>{!0 && 'Hello World'}</h1>
+    return (
+      <div className={'app'}>
+        <Header></Header>
+        <Body></Body>
+        <Footer></Footer>
+      </div>
+    )
   }
 }
 
