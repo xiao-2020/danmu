@@ -23,7 +23,8 @@ module.exports = env => {
       rules: [
         {
           test: /\.jsx?$/,
-          loader: 'babel-loader',
+          // 添加 解析 js代码里面的css 代码的前缀 问题   增加 postcss astroturf
+          use: ['babel-loader', 'astroturf/loader' ],
           exclude: [path.resolve(__dirname, '../node_modules')]
         },
         {
