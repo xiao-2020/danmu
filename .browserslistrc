@@ -1,0 +1,6 @@
+  > 1%
+  ios >= 8.0
+  Android > 4.1
+  not ie <= 8
+  Firefox > 50
+  last 2 versions
