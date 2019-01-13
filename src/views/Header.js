@@ -1,8 +1,9 @@
 import React  from 'react'
 
+
 class Header extends React.Component {
   render() {
-    return <div> Header </div>
+    return <div style={{'display': 'flex'}} > Header </div>
   }
 }
 
