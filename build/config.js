@@ -18,7 +18,7 @@ module.exports = {
     publicPath: '/',
     assetsSubDir: 'static',
     // 设置打包后的资源目录路径
-    resouceDir: path.posix.resolve(__dirname, '..',dir),
+    resouceDir: path.posix.resolve(__dirname, '..', dir),
   },
   production: {
     output: {
@@ -26,10 +26,15 @@ module.exports = {
       filename: '[name].[chunkhash].js',
     },
     // 设置打包后的资源目录路径
-    resouceDir: path.posix.resolve(__dirname, '..',dir),
+    resouceDir: path.posix.resolve(__dirname, '..', dir),
     mode: 'production',
     devtool: 'none',
-    publicPath: '/',
+    publicPath: './', //资源路径
     assetsSubDir: 'static',
+    productionSourceMap: false, //是否生成map文件
+    productionGzip: true, //是否压缩启用
+    productionGzipExtensions: ['js', 'css'], //压缩启用-压缩的内容
+    deleteOriginalAssets: false, //压缩启用-删除压缩的源文件
+
   }
 }
