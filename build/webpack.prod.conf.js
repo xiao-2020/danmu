@@ -11,15 +11,21 @@ const config = require('./config')
 // 在 build 文件里面 有定义 process.env.NODE_ENV  但是在这个页面取不到  很奇怪 所以 用 函数 参数的形式传入
 const webpackConfig = env => merge(webpackBaseConf(env), {
   plugins: [
-    //压缩Gzip
+    //压缩Gzip,减少文件体积
     new CompressionWebpackPlugin({
-      filename: '[path].gz[query]',
-      algorithm: 'gzip',
+      filename: '[path].gz[query]', //生成的目标文件名，可以是函数
+      algorithm: 'gzip', //压缩算法
+      // include:'', // 要包含的文件
+      // exclude: '', //要排除的文件
+      cache: false, //是否启用文件缓存。可以设置为缓存目录string类型
       test: new RegExp(
         '\\.(' + config.production.productionGzipExtensions.join('|') + ')$'
-      ),
-      threshold: 10240, //最小开启压缩大小
-      minRatio: 0.8,
+      ), //开启压缩文件的类型
+      compressionOptions: {
+        level: 1
+      }, //压缩选项
+      threshold: 10240, //最小开启压缩大小，单位为字节
+      minRatio: 0.8, //开启压缩的最低压缩比，只有优于这个压缩比比的才被压缩
       deleteOriginalAssets: config.production.deleteOriginalAssets //是否删除源文件
     }),
     // 定义变量 以便于在项目源文件中可以取到    根据不同的环境打包不同的配置文件
