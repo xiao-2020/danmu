@@ -29,12 +29,10 @@ module.exports = {
     resouceDir: path.posix.resolve(__dirname, '..', dir),
     mode: 'production',
     devtool: 'none',
-    publicPath: './', //资源路径
+    publicPath: '/', //资源路径
     assetsSubDir: 'static',
-    productionSourceMap: false, //是否生成map文件
     productionGzip: true, //是否压缩启用
     productionGzipExtensions: ['js', 'css'], //压缩启用-压缩的内容
     deleteOriginalAssets: false, //压缩启用-删除压缩的源文件
-
   }
 }
