@@ -8,19 +8,35 @@ const copyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const config = require('./config')
 
-// 在 build 文件里面 有定义 process.env.NODE_ENV  但是在这个页面取不到  很奇怪 所以 用 函数 参数的形式传入
+//TODO 在 build 文件里面 有定义 process.env.NODE_ENV  但是在这个页面取不到  很奇怪 所以 用 函数 参数的形式传入
 const webpackConfig = env => merge(webpackBaseConf(env), {
   plugins: [
     //压缩Gzip,减少文件体积
     new CompressionWebpackPlugin({
-      filename: '[path].gz[query]', //生成的目标文件名，可以是函数
+      filename: '[file].gz[query]', //生成的目标文件名，可以是函数  //TODO 有待考证 具体的 path  file  query之间具体的关系 如何吧文件打包到别的目录
+      /** //! //TODO 待验证。。。。。！！！！！
+       * filename 函数 返回生成的目录
+       * @param {Object} info   --> info 三个属性  1 。 file  源文件名称    2. path  元静态资源目录  3.  query  源 资源查询参数
+       * @returns String  路径 和文件名
+       */
+      // filename(info) {
+      //   let path = path.resolve('..', info.path),
+      //     name = info.file,
+      //     query = info.query
+      //   console.log(`${path}${name}.gz${query}`)
+      //   return  `${name}.gz${query}`
+      // },
       algorithm: 'gzip', //压缩算法
       // include:'', // 要包含的文件
       // exclude: '', //要排除的文件
-      cache: false, //是否启用文件缓存。可以设置为缓存目录string类型
-      test: new RegExp(
-        '\\.(' + config.production.productionGzipExtensions.join('|') + ')$'
-      ), //开启压缩文件的类型
+      cache: path.posix.join(__dirname, '..', 'cache'), //TODO // 重点是这个缓存有什么用？？？？ 需要后期搞清楚啊 
+      // cache: false, //是否启用文件缓存。可以设置为缓存目录string类型  默认缓存的路径地址是：node_modules/.cache/compression-webpack-plugin. 
+                    // 默认 false 不缓存 
+      test: [
+        new RegExp('\\.js$'),
+        // new RegExp('\\.css$'), //? 此项目现在目前应该用不着 css 所以看情况打开
+      ], //  匹配需要压缩的文件   参数是  字符串 或 正则表达式  或者 字符串 数组  正则表达式 数组  默认值 undifined
+      //  也可以用 include  和 exclude 来选定想要压缩的文件 这两个选项参数 同 test 。  
       compressionOptions: {
         level: 1
       }, //压缩选项
