@@ -26,7 +26,17 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
       //   console.log(`${path}${name}.gz${query}`)
       //   return  `${name}.gz${query}`
       // },
-      algorithm: 'gzip', //压缩算法
+      algorithm: 'gzip', //压缩算法  默认值 是 gzip 。  参数可以是 字符串 可以是一个函数  算法取至于  zlib库
+                        // 参数可以是函数   
+                        /**
+                         * input 输入  compressionOptions 压缩参数   callback 毁掉函数
+                         * algorithm (input, compressionOptions, callback) {
+                         ** 这里可以做一些别的处理 //TODO ...
+                         *   return compressionFunction(input, compressionOptions, callback);
+                         * }
+                         * ///! 其中 compressionOptions 参数是一个对象  默认值 是 { level : 9 },, 如果algorithm 使用默认函数， 则默认值为 {} 
+                         * /// 具体的值可以在  zlib 里面找到更多 https://nodejs.org/api/zlib.html
+                         */
       // include:'', // 要包含的文件
       // exclude: '', //要排除的文件
       cache: path.posix.join(__dirname, '..', 'cache'), //TODO // 重点是这个缓存有什么用？？？？ 需要后期搞清楚啊 
@@ -40,7 +50,7 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
       compressionOptions: {
         level: 1
       }, //压缩选项
-      threshold: 10240, //最小开启压缩大小，单位为字节
+      threshold: 10240, //最小开启压缩大小，单位为字节  默认值 为0 
       minRatio: 0.8, //开启压缩的最低压缩比，只有优于这个压缩比比的才被压缩
       deleteOriginalAssets: config.production.deleteOriginalAssets //是否删除源文件
     }),
