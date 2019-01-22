@@ -51,8 +51,9 @@ const webpackConfig = env => merge(webpackBaseConf(env), {
         level: 1
       }, //压缩选项
       threshold: 10240, //最小开启压缩大小，单位为字节  默认值 为0 
-      minRatio: 0.8, //开启压缩的最低压缩比，只有优于这个压缩比比的才被压缩
-      deleteOriginalAssets: config.production.deleteOriginalAssets //是否删除源文件
+      minRatio: 0.8, //开启压缩的最低压缩比，只有优于这个压缩比 的才被压缩 这个比例的算法 minRatio = 压缩后的尺寸 / 原始尺寸 ；  比如原始尺寸 1000b  压缩后 750b 那压缩比就是
+                    // 0.75   0.75 小于 0.8  所以 压缩的尺寸比例由于设定的比例 所以 会被压缩。 可以设置为1 来保证所有的 资源都会被压缩。
+      deleteOriginalAssets: config.production.deleteOriginalAssets //是否删除源文件  默认 false。  一般不要删除源文件，因为请求如果没有带 accept-encoding  gzip 的话 有可能返回不了 想要的资源
     }),
     // 定义变量 以便于在项目源文件中可以取到    根据不同的环境打包不同的配置文件
     new webpack.DefinePlugin({
