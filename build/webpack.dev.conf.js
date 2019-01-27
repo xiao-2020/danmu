@@ -29,7 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
       warnings: false,
     }, // 是否吧编辑错误 和警告 以 浏览器全屏的方式 展示出来，  一般  error 需要  warining 不需要
     quiet: true, // 除了启动信息之外的所有信息都不会显示
-    disableHostCheck: true, // 允许别的地址访问
+    disableHostCheck: true, // 不开启 域名检查
     headers: {}, // 在所有  响应 中 添加头部 
     historyApiFallback: { // 用于处于路由使用 h5 history API模式的时候  用于处理刷新 404 请求 的 处理
       rewrites: [
@@ -43,7 +43,7 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     //     res.json({custom: 'json'})
     //   })
     // },
-    // useLocalIp: true, // 此选项可以让你的项目 可以用你的本地ip 打开
+    useLocalIp: true, // 此选项可以让你的项目 可以用你的本地ip 打开 并且将会默认以ip打开  //! 前提条件  host 得 设置成 0.0.0.0
     watchContentBase: true, //  监听 contenbase属性 目录下的文件， 文件变化 会刷新页面。 默认false   如果 contenBase 为 false 的话 不能用此属性
     // watch: {
       
