@@ -13,7 +13,7 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     clientLogLevel: 'warning', // 不显示任何信息
     // contentBase: false,  使用 false 代表禁用，  但是 watchContentBase  就不能使用了 ，因为 这个属性要求 contenbase 提供一个路径才行  需要监听 模版文件变化 不写就可以了
     // contentBase: path.resolve(__dirname, '..', 'dist') */,  // 资源的位置   可以指定路径    也可以不写 或禁用     devserver 访问的内存中的文件
-    // 一般 禁用此选项后 服务会在当前根目录找 静态资源   用 html生成插件生成一个文件就可以了   然后用 copy 插件将静态资源 copy到打包目录下 就可以了  ， 
+    // 一般 禁用此选项后 服务会在当前根目录找 静态资源   用 html生成插件生成一个文件就可以了   然后用 copy 插件将静态资源 copy到打包目录下 就可以了  ，
     compress: true, // 启动gzip 压缩
     port: config.dev.port, // 端口号
     host: config.dev.host, // 如果需要外部服务器访问 指定 0.0.0.0
@@ -30,12 +30,18 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     }, // 是否吧编辑错误 和警告 以 浏览器全屏的方式 展示出来，  一般  error 需要  warining 不需要
     quiet: true, // 除了启动信息之外的所有信息都不会显示
     disableHostCheck: true, // 不开启 域名检查
-    headers: {}, // 在所有  响应 中 添加头部 
+    headers: {}, // 在所有  响应 中 添加头部
     historyApiFallback: { // 用于处于路由使用 h5 history API模式的时候  用于处理刷新 404 请求 的 处理
       rewrites: [
         {from: /.*/, to: path.posix.join(config.dev.resouceDir, 'index.html')}
       ]
     },
+    // 在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。 这可以用来配置自定义处理程序
+    // before: function(app) {
+    //   app.get('/some/path', function(req, res) {
+    //     res.json({ custom: 'response' });
+    //   });
+    // },
     proxy: config.dev.proxy, // 处理代理
     publicPath: config.dev.publicPath, //指定打包后的文件公共路径 默认 微 /
     // setup(app) { // 自定义一些express中间件
@@ -46,7 +52,7 @@ const devWebpackConfig = merge(baseWebpackConfig('dev'), {
     useLocalIp: true, // 此选项可以让你的项目 可以用你的本地ip 打开 并且将会默认以ip打开  //! 前提条件  host 得 设置成 0.0.0.0
     watchContentBase: true, //  监听 contenbase属性 目录下的文件， 文件变化 会刷新页面。 默认false   如果 contenBase 为 false 的话 不能用此属性
     // watch: {
-      
+
     // }, //   watch 选项默认开启   监听已构建文件的变化
     watchOptions: {
       // aggregateTimeout: 300, // 指监听到文件变化 到文件重新构建之间 设置延时时间  一般都是处理 多处更改文件 统一构建是才需要  单位 ms
